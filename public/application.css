@@ -5,7 +5,7 @@
 }
 
 .bb-carousel a, a:hover {
-  text-decoration: none; 
+  text-decoration: none;
   color: #333;
   cursor: pointer;
   background: #fff;
@@ -30,6 +30,7 @@
 
 .disabled {
   color: #ccc;
+  opacity: .5
 }
 
 #prev {

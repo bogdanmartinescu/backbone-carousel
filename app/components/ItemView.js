@@ -6,7 +6,8 @@ export default Marionette.View.extend({
 
   ui: {
     prev: '#prev',
-    next: '#next'
+    next: '#next',
+    list: '.bb-carousel-list'
   },
 
   events: {
@@ -18,48 +19,65 @@ export default Marionette.View.extend({
     const options = this.model.attributes;
     this.title = options.title || "";
     this.images = options.images || [];
-    this.toShow = 4;
+    this.toShow = options.show || 4;
     this.first = 0;
     this.last = this.toShow;
-    this.display = [];
   },
 
   build() {
-    if(this.images.length) {
-      this.images = this.images.map(function(image) {
-        return "<li><img src=" + image + " class='carousel-item'></li>";
-      }.bind(this));
+    if(!this.images.length) {
+      return;
     }
+
+    this.images = this.images.map(function(image) {
+      return `<li><img src="${image}" class='carousel-item'></li>`;
+    }.bind(this));
   },
 
   onRender() {
+    this.bindUIElements();
     this.build();
     this.displayItems();
   },
 
   prev(e) {
     e.preventDefault();
-    if(this.first === 0) {
+    if(this.first <= 0) {
         return;
     }
 
-    this.first -= 1;
-    this.last -= 1;
+    this.first -= this.toShow;
+    this.last -= this.toShow;
     this.displayItems();
   },
 
   next(e) {
     e.preventDefault();
-    if(this.last === this.images.length) {
+    if(this.last >= this.images.length) {
         return;
     }
 
-    this.first += 1;
-    this.last += 1;
+    this.first += this.toShow;
+    this.last += this.toShow;
     this.displayItems();
   },
-  
+
   displayItems() {
-    this.$el.find('.bb-carousel-list').html(this.images.slice(this.first, this.last).join(''));
+    this.handleDisabledState();
+    this.ui.list.html(this.images.slice(this.first, this.last).join(''));
+  },
+
+  handleDisabledState() {
+    if(this.first <= 0) {
+      this.ui.prev.addClass('disabled');
+    } else {
+      this.ui.prev.removeClass('disabled');
+    }
+
+    if(this.last >= this.images.length) {
+      this.ui.next.addClass('disabled');
+    } else {
+      this.ui.next.removeClass('disabled');
+    }
   }
 });

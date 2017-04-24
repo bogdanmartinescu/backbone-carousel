@@ -29,6 +29,12 @@ images: [url7, url8]
 
 }`
 
+* - Display a random image for each block from the set of images.  
+
+### Technologies:
+
+Please use Backbone and optionally Marionette
+
 ## Getting started
 
 * Install:

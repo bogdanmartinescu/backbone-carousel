@@ -67,7 +67,7 @@ export default Marionette.View.extend({
 
   randomImage() {
     let total = this.images.length - 1;
-    let random = _.random(this.first, this.last);
+    let random = _.random(this.first, this.last - 1);
 
     if(random > total) {
       random = total;

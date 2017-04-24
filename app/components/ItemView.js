@@ -7,7 +7,8 @@ export default Marionette.View.extend({
   ui: {
     prev: '#prev',
     next: '#next',
-    list: '.bb-carousel-list'
+    list: '.bb-carousel-list',
+    main: '.bb-random-image'
   },
 
   events: {
@@ -22,6 +23,8 @@ export default Marionette.View.extend({
     this.toShow = options.show || 4;
     this.first = 0;
     this.last = this.toShow;
+    this.random = _.random(0, this.images.length);
+    this.main = this.images[this.random];
   },
 
   build() {
@@ -29,15 +32,18 @@ export default Marionette.View.extend({
       return;
     }
 
-    this.images = this.images.map(function(image) {
+    const callback = (image) => {
       return `<li><img src="${image}" class='carousel-item'></li>`;
-    }.bind(this));
+    };
+
+    this.images = _.map(this.images, callback);
   },
 
   onRender() {
     this.bindUIElements();
     this.build();
     this.displayItems();
+    this.randomImage();
   },
 
   prev(e) {
@@ -60,6 +66,10 @@ export default Marionette.View.extend({
     this.first += this.toShow;
     this.last += this.toShow;
     this.displayItems();
+  },
+
+  randomImage() {
+    this.ui.main.html(`<img src=${this.main} >`)
   },
 
   displayItems() {

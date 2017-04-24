@@ -5,7 +5,7 @@
 }
 
 .bb-carousel a, a:hover {
-  text-decoration: none; 
+  text-decoration: none;
   color: #333;
   cursor: pointer;
   background: #fff;
@@ -16,7 +16,7 @@
   list-style: none;
   display: inline-block;
   padding: 0;
-  margin: 0 0 0 140px;
+  margin: 0;
 }
 
 .bb-carousel-list li {

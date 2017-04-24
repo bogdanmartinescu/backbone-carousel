@@ -23,7 +23,7 @@ export default Marionette.View.extend({
     this.toShow = options.show || 4;
     this.first = 0;
     this.last = this.toShow;
-    this.random = _.random(0, this.images.length);
+    this.random = _.random(0, this.images.length - 1);
     this.main = this.images[this.random];
   },
 
